@@ -134,6 +134,8 @@
             </select>&nbsp;&nbsp; <select id="select_dialect">
             </select>
         </div>
+
+        <button onclick="requestNPL()">Test Post</button>
     </div>
 </div>
 
@@ -212,6 +214,7 @@
     updateCountry();
     select_dialect.selectedIndex = 6;
     showInfo('info_start');
+    var processing = false;
 
     function updateCountry() {
         for (var i = select_dialect.options.length - 1; i >= 0; i--) {
@@ -224,7 +227,65 @@
         select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
     }
 
-    var create_email = false;
+
+
+    function speak (text) {
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.pitch = 1;
+        utterance.rate = 1
+        speechSynthesis.speak(utterance);
+    }
+
+
+    function requestNPL(text){
+
+        if (processing || text == null || text === "") return;
+
+        processing = true;
+
+        console.log("text",text);
+        text = encodeURIComponent(text.trim());
+        console.log("trimmed text",text);
+
+
+        $.ajax({
+            url: 'https://api.wit.ai/message?v=20220419&q=' + text,
+            type: 'GET',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer E6VQQX5W7HR2AAYYYHQC4G7XOAVTP4BM'
+            },
+            success: function (result) {
+                processing = false;
+                console.log("success");
+                console.log(result);
+
+                var intent = result.intents[0].name;
+                var confinance = result.intents[0].confidence * 100;
+                
+
+                console.log("intenst",intent);
+                console.log("intenst confinance",confinance);
+
+                //speak("Test Speaking")
+
+
+                var coin = result.entities["coin:coin"][0].value;
+                console.log("coin",coin);
+                
+
+            },
+            error: function (error) {
+                processing = false;
+                console.log("error");
+                console.log(error);
+            }
+        });
+    }
+
+
+
+ 
     var final_transcript = '';
     var recognizing = false;
     var ignore_onend;
@@ -281,10 +342,7 @@
                 range.selectNode(document.getElementById('final_span'));
                 window.getSelection().addRange(range);
             }
-            if (create_email) {
-                create_email = false;
-                createEmail();
-            }
+            
         };
 
         recognition.onresult = function (event) {
@@ -302,12 +360,18 @@
                     interim_transcript += event.results[i][0].transcript;
                 }
             }
+
+       
+            console.log("final_transcript",final_transcript);
+
             final_transcript = capitalize(final_transcript);
             final_span.innerHTML = linebreak(final_transcript);
             interim_span.innerHTML = linebreak(interim_transcript);
             if (final_transcript || interim_transcript) {
                 showButtons('inline-block');
             }
+
+            requestNPL(final_transcript);
         };
     }
 
@@ -367,6 +431,8 @@
         current_style = style;
    
     }
+
+
 
 </script>
 

@@ -1,10 +1,5 @@
 /*-----------------------------------------------------------------------------------
 
- Template Name:Chitchat
- Template URI: themes.pixelstrap.com/chitchat
- Description: This is Chat website
- Author: Pixelstrap
- Author URI: https://themeforest.net/user/pixelstrap
 
  ----------------------------------------------------------------------------------- */
 // 01. Tooltip js
@@ -397,37 +392,37 @@
     /*=====================
            13. Customizer
            ==========================*/
-           $('<div class="sidebar-pannle-main"><ul><li class="rtl-setting icon-btn btn-primary">RTL</li><li class="cog-click icon-btn btn-success" ><i class="fa fa-cog"></i></li></ul></div> <section class="setting-sidebar"><div class="theme-title"><div class="media"><div><h2>Customizer</h2><h4>Real Time Customize</h4></div><div class="media-body"><a class="icon-btn btn-outline-light button-effect pull-right cog-close" href="#"><i class="fa fa-close"></i></a></div></div></div><div class="color-picker"><h5>Choose color</h5><ul class="colors"><li class="color active" data-attr="style"></li><li class="color1" data-attr="style1"></li><li class="color2" data-attr="style2"></li><li class="color3" data-attr="style3"></li><li class="color4" data-attr="style4"></li><li class="color5" data-attr="style5"></li><li class="color6" data-attr="style6"></li></ul></div><div class="theme-layout"><h5>Layout</h5><ul><li class="active" data-attr=""><div class="sidebar"></div><div class="sidebar-content"></div></li><li data-attr="dark-sidebar"><div class="sidebar"></div><div class="sidebar-content"></div></li><li data-attr="dark"><div class="sidebar"></div><div class="sidebar-content"></div></li><li data-attr="colorfull"><div class="sidebar"></div><div class="sidebar-content"></div></li></ul></div><div class="chat-wallpaper"><h5>Chat wallpaper</h5><ul class="wallpaper"><li class="bg-color bg-default active"></li><li class="bg-size" style="background-image: url("../assets/images/wallpaper/2.jpg"); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/wallpaper/2.jpg" alt="Avatar" style="display: none;"></li><li class="bg-size" style="background-image: url("../assets/images/wallpaper/3.jpg"); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/wallpaper/3.jpg" alt="Avatar" style="display: none;"></li><li class="bg-size" style="background-image: url("../assets/images/wallpaper/4.jpg"); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/wallpaper/4.jpg" alt="Avatar" style="display: none;"></li><li class="bg-size" style="background-image: url("../assets/images/wallpaper/5.jpg"); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/wallpaper/5.jpg" alt="Avatar" style="display: none;"></li><li class="bg-size" style="background-image: url("../assets/images/wallpaper/1.jpg"); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/wallpaper/1.jpg" alt="Avatar" style="display: none;"></li> <br><li class="bg-color grediant-1"></li><li class="bg-color grediant-2"></li><li class="bg-color grediant-3"></li><li class="bg-color grediant-4"></li><li class="bg-color grediant-5"></li><li class="bg-color grediant-6"></li></ul></div><div class="sidebar-setting"><h5>Sidebar</h5><ul><li class="active three-column"><div class="sm-sidebar"></div><div class="sidebar"></div><div class="sidebar-content"></div></li><li class="two-column"><div class="sidebar"></div><div class="sidebar-content"></div></li></ul></div> </section>').appendTo($('body'));
-           $('.cog-click').on('click', function () {
-            $('.setting-sidebar').css("right", "0px");
-        });
-           $(".cog-close").on('click', function () {
-            $('.setting-sidebar').css("right", "-400px");
-        });
-           $(".theme-layout li").on('click', function () {
-            $(".theme-layout li").removeClass('active');
-            $(this).addClass("active");
-            var themeLayout = $(this).attr("data-attr");
-            $("body").attr("class", themeLayout);
-        });
-           var body_event = $("body");
-           body_event.on("click", ".rtl-setting", function () {
-            $(this).toggleClass('rtl');
-            $('body').removeClass('rtl');
-            if ($('.rtl-setting').hasClass('rtl')) {
-                $('.rtl-setting').text('LTR');
-                $('body').addClass('rtl');
-            } else {
-                $('.rtl-setting').text('RTL');
-            }
-            return false;
-        });
-           body_event.on("click", ".themes-content li", function () {
-            $(this).addClass('active').siblings().removeClass('active');
-            $color = $(this).attr("data-attr");
-            $("#color").attr("href", "../assets/css/" + $color + ".css");
-            return false;
-        });
+        
+        //    $('.cog-click').on('click', function () {
+        //     $('.setting-sidebar').css("right", "0px");
+        // });
+        //    $(".cog-close").on('click', function () {
+        //     $('.setting-sidebar').css("right", "-400px");
+        // });
+        //    $(".theme-layout li").on('click', function () {
+        //     $(".theme-layout li").removeClass('active');
+        //     $(this).addClass("active");
+        //     var themeLayout = $(this).attr("data-attr");
+        //     $("body").attr("class", themeLayout);
+        // });
+        //    var body_event = $("body");
+        //    body_event.on("click", ".rtl-setting", function () {
+        //     $(this).toggleClass('rtl');
+        //     $('body').removeClass('rtl');
+        //     if ($('.rtl-setting').hasClass('rtl')) {
+        //         $('.rtl-setting').text('LTR');
+        //         $('body').addClass('rtl');
+        //     } else {
+        //         $('.rtl-setting').text('RTL');
+        //     }
+        //     return false;
+        // });
+        //    body_event.on("click", ".themes-content li", function () {
+        //     $(this).addClass('active').siblings().removeClass('active');
+        //     $color = $(this).attr("data-attr");
+        //     $("#color").attr("href", "../assets/css/" + $color + ".css");
+        //     return false;
+        // });
 
     /*=====================
     14 footer responsive js
@@ -675,16 +670,16 @@
 
         $(".messages").animate({ scrollTop: $(document).height() }, "fast");
         $('.submit').on('click', function() {
-            typingMessage();
-            newMessage();
+            //typingMessage();
+            sendMessage();
         });
         $(window).on('keydown', function(e) {
             if (e.which == 13) {
                 if(!e.target.value){
                     return false
                 }
-                typingMessage();
-                newMessage();
+                //typingMessage();
+                sendMessage();
                 return false;
             }
         });
@@ -710,18 +705,37 @@
             }
         });
 
-        function newMessage() {
+        function sendMessage() {
+            console.log("showSentMessage called")
             var message = $('.message-input input').val();
             if($.trim(message) == '') {
                 return false;
             }
             $('<li class="replies"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/1.jpg&quot;); background-size: cover; background-position: center center;"></div><div class="media-body"> <div class="contact-name"> <h5>Alan josheph</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5>' + message + '</h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+            
             $('.message-input input').val(null);
+
             $('.chat-main .active .details h6').html('<span>You : </span>' + message);
             $(".messages").animate({ scrollTop: $(document).height() }, "fast");
         };
 
-        function typingMessage() {
+
+
+        function showSentMessage(message) {
+            console.log("showSentMessage called")
+
+            if($.trim(message) == '') {
+                return false;
+            }
+           
+            $('<li class="replies"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/1.jpg&quot;); background-size: cover; background-position: center center;"></div><div class="media-body"> <div class="contact-name"> <h5>Alan josheph</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5>' + message + '</h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+
+
+            $('.chat-main .active .details h6').html('<span>You : </span>' + message);
+            
+        };
+
+        function showReplyMessage() {
           $('<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/contact/2.jpg" alt="Avatar" style="display: none;"></div><div class="media-body"> <div class="contact-name"> <h5>Josephin water</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
           $(".messages").animate({ scrollTop: $(document).height() }, "fast");   
           setTimeout(function() {
@@ -819,6 +833,121 @@
         return false;
     });
 
+
+/*=====================
+       26. Web3
+==========================*/
+
+       if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+        console.log("Metamask installed！ ",web3.currentProvider);
+        
+} else {
+       // set the provider you want from Web3.providers
+       web3 = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-2-s2.binance.org:8545/"));   
+       console.log("web3",web3);
+}
+
+var myAddress= "";
+
+const ethereumButton = document.querySelector('#connectWallet');
+
+ethereumButton.addEventListener('click', () => {
+
+    async function getAccount() {
+
+        
+        console.log(window.ethereum);
+        console.log("web3",web3);
+
+        var chainId = await ethereum.request({ method: 'eth_chainId' });
+
+        var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+        console.log("Chian ID: ",chainId) // 42
+        
+
+        // if (chainId != "0x38") {
+        //     alert("Please switch to BSC Mainnet in Metamask");
+        //     return;
+        // }
+
+
+        console.log("accounts ",accounts);
+        
+        if (accounts != undefined && accounts.length > 0) {
+            alert("You already connect with Metamask");
+            myAddress = accounts[0];
+        }
+    }
+
+    getAccount();
+
+});
+
+
+
+const abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"name","type":"string"}],"name":"addFriend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessagesString","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"checkUserExists","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"createAccount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getMyFriendList","outputs":[{"components":[{"internalType":"address","name":"pubkey","type":"address"},{"internalType":"string","name":"name","type":"string"}],"internalType":"struct Chat.friend[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"getUsername","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"messageCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"ownAddress","type":"address"},{"internalType":"address","name":"friend_key","type":"address"}],"name":"readMessage","outputs":[{"components":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"internalType":"struct Chat.message[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"_msg","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+   
+//合约地址
+const address = '0x662E00324A886DcCAc3E0d1cb933598Ac5307A65';
+
+const contract = new web3.eth.Contract(abi, address);
+
+$( "#send" ).click(function() {
+    console.log('send Clicked!');
+
+    //检查一下Metamask有没安装
+    if (typeof window.ethereum !== 'undefined') {
+    console.log('MetaMask is installed!');
+    } else {
+        alert("Please install MetaMask");
+        console.log('MetaMask is NOT installed!');
+    }
+
+    var walletAddress = $( "#walletAddress" ).val();
+    var messageText = $( "#messageText" ).val();
+    
+    console.log("walletAddress:",walletAddress);
+    console.log("messageText:",messageText);
+    
+    
+
+    contract.methods.sendMessage(walletAddress,messageText).send({
+            from: accounts[0],
+            gas: 470000,
+            gasPrice:0
+    })
+
+
+});
+
+
+
+//Get Messsage
+(async () => {
+
+
+    //Get Messsage
+    contract.methods.readMessage("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E","0x1509dE665356b6ca3a909630cd4646B54D26711D").call((err, result) => { 
+        console.log(" err",err) 
+        console.log("result",result)
+      
+       
+
+        for (let index = 0; index < result.length; index++) {
+            const msgg = result[index];
+            console.log("msgg",msgg);
+            showSentMessage(msgg.msg);
+            
+        }
+
+        
+
+    });
+
+
+})();
 
 
 })(jQuery);

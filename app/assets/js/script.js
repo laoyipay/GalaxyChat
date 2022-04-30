@@ -721,8 +721,12 @@
 
 
 
-        function showSentMessage(message) {
+        function showSentMessage(msg) {
             console.log("showSentMessage called")
+
+
+            var message =  msg.msg;
+            var senderName = msg.sender;
 
             if($.trim(message) == '') {
                 return false;
@@ -864,13 +868,13 @@ ethereumButton.addEventListener('click', () => {
 
         var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 
-        console.log("Chian ID: ",chainId) // 42
+        console.log("Chian ID: ",chainId) // 97 
         
 
-        // if (chainId != "0x38") {
-        //     alert("Please switch to BSC Mainnet in Metamask");
-        //     return;
-        // }
+        if (chainId != "0x61" && chainId != "97") {
+            alert("Please switch to BSC Testnet in Metamask");
+            return;
+        }
 
 
         console.log("accounts ",accounts);
@@ -887,10 +891,10 @@ ethereumButton.addEventListener('click', () => {
 
 
 
-const abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"name","type":"string"}],"name":"addFriend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessagesString","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"checkUserExists","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"createAccount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getMyFriendList","outputs":[{"components":[{"internalType":"address","name":"pubkey","type":"address"},{"internalType":"string","name":"name","type":"string"}],"internalType":"struct Chat.friend[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"getUsername","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"messageCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"ownAddress","type":"address"},{"internalType":"address","name":"friend_key","type":"address"}],"name":"readMessage","outputs":[{"components":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"internalType":"struct Chat.message[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"_msg","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+const abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"name","type":"string"}],"name":"addFriend","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"allMessagesString","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"checkUserExists","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"createAccount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"myAddress","type":"address"}],"name":"getMyFriendList","outputs":[{"components":[{"internalType":"address","name":"pubkey","type":"address"},{"internalType":"string","name":"name","type":"string"}],"internalType":"struct Chat.friend[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getMyFriendList2","outputs":[{"components":[{"internalType":"address","name":"pubkey","type":"address"},{"internalType":"string","name":"name","type":"string"}],"internalType":"struct Chat.friend[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pubkey","type":"address"}],"name":"getUsername","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"messageCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"ownAddress","type":"address"},{"internalType":"address","name":"friend_key","type":"address"}],"name":"readMessage","outputs":[{"components":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"string","name":"msg","type":"string"}],"internalType":"struct Chat.message[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"friend_key","type":"address"},{"internalType":"string","name":"_msg","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"}];
    
 //合约地址
-const address = '0x662E00324A886DcCAc3E0d1cb933598Ac5307A65';
+const address = '0x87c1FD283C5E08edBC3224e4365CC7B8b9b38747';
 
 const contract = new web3.eth.Contract(abi, address);
 
@@ -938,13 +942,32 @@ $( "#send" ).click(function() {
         for (let index = 0; index < result.length; index++) {
             const msgg = result[index];
             console.log("msgg",msgg);
-            showSentMessage(msgg.msg);
+            showSentMessage(msgg);
             
         }
 
-        
+    });
+
+
+
+    contract.methods.getMyFriendList("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E").call((err, result) => { 
+        console.log(" getMyFriendList err",err) 
+        console.log("getMyFriendList result",result)
+      
+       
+
+        // for (let index = 0; index < result.length; index++) {
+        //     const msgg = result[index];
+        //     console.log("msgg",msgg);
+        //     showSentMessage(msgg.msg);
+            
+        // }
 
     });
+
+
+
+    
 
 
 })();

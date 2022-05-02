@@ -668,6 +668,16 @@
         Chat 
         ==========================*/
 
+
+
+        function speak (text) {
+            console.log("speak: ",text)
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.pitch = 1;
+            utterance.rate = 1
+            speechSynthesis.speak(utterance);
+        }
+
         $(".messages").animate({ scrollTop: $(document).height() }, "fast");
         $('.submit').on('click', function() {
             //typingMessage();
@@ -721,32 +731,43 @@
 
 
 
-        function showSentMessage(msg) {
+        function showSentMessage(message,senderName) {
             console.log("showSentMessage called")
-
-
-            var message =  msg.msg;
-            var senderName = msg.sender;
 
             if($.trim(message) == '') {
                 return false;
             }
+
+            // var message =  msg.msg;
+            // var senderName = msg.sender;
+
+            
            
             $('<li class="replies"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/1.jpg&quot;); background-size: cover; background-position: center center;"></div><div class="media-body"> <div class="contact-name"> <h5>Alan josheph</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5>' + message + '</h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
 
 
             $('.chat-main .active .details h6').html('<span>You : </span>' + message);
+            $(".messages").animate({ scrollTop: $(document).height() }, "fast");
             
         };
 
-        function showReplyMessage() {
-          $('<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/contact/2.jpg" alt="Avatar" style="display: none;"></div><div class="media-body"> <div class="contact-name"> <h5>Josephin water</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+        function showReplyMessage(replyContent,replyName, isBot) {
+
+            var avatarUrl = ""
+            console.log("isBot",isBot);
+            if(isBot) {
+                avatarUrl = "avtar/bot.png";
+            } else {
+                avatarUrl = "contact/2.jpg";
+            }
+
+          $('<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/' + avatarUrl +';); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/contact/2.jpg" alt="Avatar" style="display: none;"></div><div class="media-body"> <div class="contact-name"> <h5>Josephin water</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
           $(".messages").animate({ scrollTop: $(document).height() }, "fast");   
           setTimeout(function() {
             $('.typing-m').hide(); 
-            $('<li class="sent"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/2.jpg&quot;); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>Josephin water</h5> <h6>01:35 AM</h6> <ul class="msg-box"> <li> <h5> Sorry I busy right now, I will text you later </h5> <div class="badge badge-success sm ml-2"> R</div></li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+            $('<li class="sent"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/' + avatarUrl +'); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>' + replyName +'</h5> <h6>01:35 AM</h6> <ul class="msg-box"> <li> <h5>' + replyContent + '</h5></li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
             $(".messages").animate({ scrollTop: $(document).height() }, "fast");   
-        }, 2000);
+        }, 1000);
       }
 
 
@@ -848,30 +869,90 @@
 
 
 
-// function showInfo(s) {
-//     if (s) {
-//         for (var child = info.firstChild; child; child = child.nextSibling) {
-//             if (child.style) {
-//                 child.style.display = child.id == s ? 'inline' : 'none';
-//             }
-//         }
-//         info.style.visibility = 'visible';
-//     } else {
-//         info.style.visibility = 'hidden';
-//     }
-// }
 
 
 // showInfo('info_start');
 var processing = false;
 
 
-function speak (text) {
-    let utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 1;
-    utterance.rate = 1
-    speechSynthesis.speak(utterance);
+
+
+
+
+//Crypto Price
+function getCryptoPrice (symbol) {
+
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://binance43.p.rapidapi.com/ticker/price?symbol=" + symbol + "USDT",
+        "method": "GET",
+        "headers": {
+            "X-RapidAPI-Host": "binance43.p.rapidapi.com",
+            "X-RapidAPI-Key": "7Yz9lOeBjfmsh8RtKFXErnn87HKgp1cxX6GjsnlMdMaPcHg2Mg"
+        }
+    };
+    
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        
+
+        if (response != null  && response.price != null) {
+            var replyText = "The price of " + symbol +" is $" + (Math.round(response.price * 100) / 100).toFixed(2);
+            showReplyMessage(replyText,"Galaxy Bot",true);
+            speak(replyText);
+        }
+    });
 }
+
+
+//Hot NFT project
+function getHotNFT () {
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://top-nft-collections-and-sales.p.rapidapi.com/collections/1d",
+        "method": "GET",
+        "headers": {
+            "X-RapidAPI-Host": "top-nft-collections-and-sales.p.rapidapi.com",
+            "X-RapidAPI-Key": "7Yz9lOeBjfmsh8RtKFXErnn87HKgp1cxX6GjsnlMdMaPcHg2Mg"
+        }
+    };
+    
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        
+
+        if (response != null  && response.length > 0 ) {
+
+
+            var topProjectText = "Top NFT Collection Today is following:";
+            var allProjectInfo = "";
+
+            showReplyMessage(topProjectText,"Galaxy Bot",true);
+           
+            for (let index = 0; index < 3; index++) {
+                const project = response[index];
+                console.log("project",project);
+                var projectInfo =  project.collection_name + " Floor Price " + project.floor.substring(1) + " ETH ";
+                showReplyMessage(projectInfo,"Galaxy Bot",true);
+                allProjectInfo = allProjectInfo + " " +  projectInfo;
+            }
+
+           
+            speak(topProjectText + " " + allProjectInfo);
+
+
+      
+
+            // var replyText = "The price of " + symbol +" is $" + (Math.round(response.price * 100) / 100).toFixed(2);
+            // showReplyMessage(replyText,"Galaxy Bot");
+            // speak(replyText);
+        }
+    });
+}
+
+
 
 
 function requestNPL(text){
@@ -906,9 +987,19 @@ function requestNPL(text){
 
             //speak("Test Speaking")
 
+            if (intent == "price") {
+                var coin = result.entities["coin:coin"][0].value;
+                console.log("coin",coin);
 
-            var coin = result.entities["coin:coin"][0].value;
-            console.log("coin",coin);
+                if (coin != null) {
+                    getCryptoPrice(coin);
+                }
+                
+                } else if (intent == "hotnft") {
+                    getHotNFT();
+                }
+
+
             
 
         },
@@ -996,9 +1087,12 @@ if (!('webkitSpeechRecognition' in window)) {
             }
         }
 
+        final_transcript.replace("mft", "NFT");
    
         console.log("final_transcript",final_transcript);
-
+        requestNPL(final_transcript);
+        showSentMessage(final_transcript,'');
+        
         
     
 
@@ -1170,7 +1264,7 @@ $( "#send" ).click(function() {
         for (let index = 0; index < result.length; index++) {
             const msgg = result[index];
             console.log("msgg",msgg);
-            showSentMessage(msgg);
+            showSentMessage(msgg.msg,msgg.sender);
             
         }
 

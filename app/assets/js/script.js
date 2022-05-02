@@ -861,6 +861,80 @@
 
 
 
+/*=====================
+       26. Quantum Encrypted
+==========================*/
+
+const log = e => {
+    document.getElementById('logs').innerHTML += `${e}<br/>`;
+}
+
+const alice = new Device('Alice_098');
+const bob = new Device('Bob_098');
+
+let bobLookup = null;
+let aliceLookup = null;
+
+async function initializeUsers() {
+    await alice.initialize();
+    await bob.initialize();
+}
+
+async function registerUsers() {
+    await alice.register(); 
+    await bob.register();
+}
+
+async function findUsers() {
+    bobLookup = await alice.findUsers([bob.identity]);
+    aliceLookup = await bob.findUsers([alice.identity]);
+}
+
+async function encryptAndDecrypt() {
+    let aliceEncryptedText = await alice.authEncrypt(`Hello ${bob.identity}! How are you?`, bobLookup);
+    await bob.authDecrypt(aliceEncryptedText, aliceLookup[alice.identity]);
+
+    let bobEncryptedText = await bob.authEncrypt(`Hello ${alice.identity}! How are you?`, aliceLookup);
+    await alice.authDecrypt(bobEncryptedText, bobLookup[bob.identity]);
+}
+
+async function cleanup() {
+    await alice.cleanup();
+    await bob.cleanup();
+}
+
+async function unregisterUsers() {
+    await alice.unregister();
+    await bob.unregister();
+}
+
+
+async function main() {
+    console.log('* Testing main methods:');
+
+    console.log('<br/>----- EThree.initialize -----');
+    await initializeUsers();
+    console.log('<br/>----- EThree.register -----');
+    await registerUsers();
+    console.log('<br/>----- EThree.findUsers -----');
+    await findUsers();
+    console.log('<br/>----- EThree.authEncrypt & EThree.authDecrypt -----');
+    await encryptAndDecrypt();
+
+    console.log('<br/>----- EThree.cleanup -----');
+    await cleanup();
+    console.log('<br/>----- EThree.unregister -----');
+    await unregisterUsers();
+
+
+    
+}
+
+main();
+
+
+
+
 
 
 /*=====================
@@ -1293,6 +1367,8 @@ $( "#send" ).click(function() {
 
 
 })();
+
+
 
 
 

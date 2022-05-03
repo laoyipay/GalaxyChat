@@ -679,10 +679,10 @@
         }
 
         $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-        $('.submit').on('click', function() {
-            //typingMessage();
-            sendMessage();
-        });
+        // $('.send-msg').on('click', function() {
+        //     //typingMessage();
+        //     sendMessage();
+        // });
         $(window).on('keydown', function(e) {
             if (e.which == 13) {
                 if(!e.target.value){
@@ -858,79 +858,6 @@
         return false;
     });
 
-
-
-
-/*=====================
-       26. Quantum Encrypted
-==========================*/
-
-const log = e => {
-    document.getElementById('logs').innerHTML += `${e}<br/>`;
-}
-
-const alice = new Device('Alice_098');
-const bob = new Device('Bob_098');
-
-let bobLookup = null;
-let aliceLookup = null;
-
-async function initializeUsers() {
-    await alice.initialize();
-    await bob.initialize();
-}
-
-async function registerUsers() {
-    await alice.register(); 
-    await bob.register();
-}
-
-async function findUsers() {
-    bobLookup = await alice.findUsers([bob.identity]);
-    aliceLookup = await bob.findUsers([alice.identity]);
-}
-
-async function encryptAndDecrypt() {
-    let aliceEncryptedText = await alice.authEncrypt(`Hello ${bob.identity}! How are you?`, bobLookup);
-    await bob.authDecrypt(aliceEncryptedText, aliceLookup[alice.identity]);
-
-    let bobEncryptedText = await bob.authEncrypt(`Hello ${alice.identity}! How are you?`, aliceLookup);
-    await alice.authDecrypt(bobEncryptedText, bobLookup[bob.identity]);
-}
-
-async function cleanup() {
-    await alice.cleanup();
-    await bob.cleanup();
-}
-
-async function unregisterUsers() {
-    await alice.unregister();
-    await bob.unregister();
-}
-
-
-async function main() {
-    console.log('* Testing main methods:');
-
-    console.log('<br/>----- EThree.initialize -----');
-    await initializeUsers();
-    console.log('<br/>----- EThree.register -----');
-    await registerUsers();
-    console.log('<br/>----- EThree.findUsers -----');
-    await findUsers();
-    console.log('<br/>----- EThree.authEncrypt & EThree.authDecrypt -----');
-    await encryptAndDecrypt();
-
-    console.log('<br/>----- EThree.cleanup -----');
-    await cleanup();
-    console.log('<br/>----- EThree.unregister -----');
-    await unregisterUsers();
-
-
-    
-}
-
-main();
 
 
 
@@ -1230,6 +1157,86 @@ function showButtons(style) {
 
 
 
+/*=====================
+       26. Quantum Encrypted
+==========================*/
+
+
+
+const alice = new Device('Alice_098');
+const bob = new Device('Bob_098');
+
+let bobLookup = null;
+let aliceLookup = null;
+
+async function initializeUsers() {
+    await alice.initialize();
+    await bob.initialize();
+}
+
+async function registerUsers() {
+    await alice.register(); 
+    await bob.register();
+}
+
+async function findUsers() {
+    bobLookup = await alice.findUsers([bob.identity]);
+    aliceLookup = await bob.findUsers([alice.identity]);
+}
+
+async function encryptMessage(message) {
+    let aliceEncryptedText = await alice.authEncrypt(message, bobLookup);
+    return aliceEncryptedText;
+}
+
+async function encryptAndDecrypt() {
+    let aliceEncryptedText = await alice.authEncrypt(`Hello ${bob.identity}! How are you?`, bobLookup);
+    await bob.authDecrypt(aliceEncryptedText, aliceLookup[alice.identity]);
+
+    let bobEncryptedText = await bob.authEncrypt(`Hello ${alice.identity}! How are you?`, aliceLookup);
+    await alice.authDecrypt(bobEncryptedText, bobLookup[bob.identity]);
+}
+
+async function cleanup() {
+    await alice.cleanup();
+    await bob.cleanup();
+}
+
+async function unregisterUsers() {
+    await alice.unregister();
+    await bob.unregister();
+}
+
+
+
+
+async function main() {
+    console.log('* Testing main methods:');
+
+    console.log('<br/>----- EThree.initialize -----');
+    await initializeUsers();
+    console.log('<br/>----- EThree.register -----');
+    await registerUsers();
+    console.log('<br/>----- EThree.findUsers -----');
+    await findUsers();
+    console.log('<br/>----- EThree.authEncrypt & EThree.authDecrypt -----');
+    await encryptAndDecrypt();
+
+    console.log('<br/>----- EThree.cleanup -----');
+    await cleanup();
+    console.log('<br/>----- EThree.unregister -----');
+    await unregisterUsers();    
+}
+
+
+
+
+
+//main();
+
+
+
+
 
 
 
@@ -1250,9 +1257,9 @@ if (typeof web3 !== 'undefined') {
 
 var myAddress= "";
 
-const ethereumButton = document.querySelector('#connectWallet');
 
-ethereumButton.addEventListener('click', () => {
+$( "#connectWallet" ).click(function() {
+    console.log("connectWallet clicked");
 
     async function getAccount() {
 
@@ -1282,8 +1289,7 @@ ethereumButton.addEventListener('click', () => {
     }
 
     getAccount();
-
-});
+})
 
 
 
@@ -1294,7 +1300,7 @@ const address = '0x87c1FD283C5E08edBC3224e4365CC7B8b9b38747';
 
 const contract = new web3.eth.Contract(abi, address);
 
-$( "#send" ).click(function() {
+$( "#send-msg" ).click(function() {
     console.log('send Clicked!');
 
     //检查一下Metamask有没安装
@@ -1303,21 +1309,57 @@ $( "#send" ).click(function() {
     } else {
         alert("Please install MetaMask");
         console.log('MetaMask is NOT installed!');
+    } 
+
+    async function sendQuantumEncryptMessage(rawMessage) {
+
+
+        //Check Accounts
+        var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+
+        if (accounts == null || accounts.length == 0) {
+            alert("Please connect wallet first");
+        }
+
+        var walletAddress = accounts[0];
+        var messageText = $( "#setemoj" ).val();
+        
+        console.log("walletAddress:",walletAddress);
+        console.log("messageText:",messageText);
+
+        console.log('<br/>----- EThree.initialize -----');
+        await initializeUsers();
+        console.log('<br/>----- EThree.register -----');
+        await registerUsers();
+        console.log('<br/>----- EThree.findUsers -----');
+        await findUsers();
+        console.log('<br/>----- EThree.authEncrypt -----');
+
+        var messageAfterQuantumEncryption = await encryptMessage(messageText); 
+
+
+        console.log('<br/>----- EThree.authEncrypt -----')
+        console.log(messageAfterQuantumEncryption);
+
+
+        contract.methods.sendMessage(walletAddress,messageAfterQuantumEncryption).send({
+            from: accounts[0],
+            gas: 4700000,
+            gasPrice:0
+         })
+
+        console.log('<br/>----- EThree.cleanup -----');
+        await cleanup();
+        console.log('<br/>----- EThree.unregister -----');
+        await unregisterUsers();    
+
+        $("#setemoj").val("");
     }
 
-    var walletAddress = $( "#walletAddress" ).val();
-    var messageText = $( "#messageText" ).val();
-    
-    console.log("walletAddress:",walletAddress);
-    console.log("messageText:",messageText);
-    
+    sendQuantumEncryptMessage();
     
 
-    contract.methods.sendMessage(walletAddress,messageText).send({
-            from: accounts[0],
-            gas: 470000,
-            gasPrice:0
-    })
 
 
 });

@@ -1235,7 +1235,62 @@ async function main() {
 //main();
 
 
+function typing (text) {
+    $("#onchainmessagenotice").append('<p>'+text+'</p>');
+    // new Typed('#onchainmessagenotice',{
+    //     strings : ['',text],
+    //     typeSpeed : 40,
+    //     loop : false
+    //   });
 
+}
+
+
+$( "#testmodal" ).click(function() {
+    var myModal = new bootstrap.Modal(document.getElementById('onchainmessage'), {
+        keyboard: false,
+        backdrop: 'static'
+      });
+    myModal.show();
+
+
+
+    typing("xxxx");
+    typing("sdwd");
+    typing("dwdwd");
+    typing("wdwdw");
+
+    //$("#onchainmessagenotice").text("xxxxx");
+    // new Typed('#onchainmessagenotice',{
+    //     strings:[
+    //         "Hello..!",
+    // "My name is Muhammad Saim",
+    // "I'm a Student",
+    // "I'm a Web Developer and Designer",
+    //         "And i'm also a Graphic Designer",
+    //   ],
+    // typeSpeed:0,
+    // backSpeed:0,
+    // backDelay:3500,
+    // loop:false
+    //   });
+
+
+    //   $('#onchainmessagenotice').typed({
+	// 	strings:[
+    //             	"Hello..!",
+	// 		"My name is Muhammad Saim",
+	// 		"I'm a Student",
+	// 		"I'm a Web Developer and Designer",
+    //             	"And i'm also a Graphic Designer",
+	// 		  ],
+	// 	typeSpeed:0,
+    //     	backSpeed:0,
+    //     	backDelay:3500,
+	// 	loop:true
+	// });
+
+})
 
 
 
@@ -1248,6 +1303,8 @@ async function main() {
 if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
         console.log("Metamask installed！ ",web3.currentProvider);
+        var version = web3.version;
+        console.log("web3",version); 
         
 } else {
        // set the provider you want from Web3.providers
@@ -1322,25 +1379,39 @@ $( "#send-msg" ).click(function() {
             alert("Please connect wallet first");
         }
 
+        var myModal = new bootstrap.Modal(document.getElementById('onchainmessage'), {
+            keyboard: false,
+            backdrop: 'static'
+          });
+        myModal.show();
+
         var walletAddress = accounts[0];
         var messageText = $( "#setemoj" ).val();
         
         console.log("walletAddress:",walletAddress);
         console.log("messageText:",messageText);
 
-        console.log('<br/>----- EThree.initialize -----');
+
+        typing("Wallet Address: " + walletAddress);
+        typing("Message Before Encryption: " + messageText);
+        typing('----- Quantum-Resistance Encryption Initializing -----');
         await initializeUsers();
-        console.log('<br/>----- EThree.register -----');
+        typing('----- Quantum-Resistance Encryption Register -----');
         await registerUsers();
-        console.log('<br/>----- EThree.findUsers -----');
+        console.log('----- EThree.findUsers -----');
         await findUsers();
-        console.log('<br/>----- EThree.authEncrypt -----');
+        typing('-----Quantum-Resistance Encryption starts encrypting -----');
 
         var messageAfterQuantumEncryption = await encryptMessage(messageText); 
 
 
-        console.log('<br/>----- EThree.authEncrypt -----')
-        console.log(messageAfterQuantumEncryption);
+        console.log('----- EThree.authEncrypt -----')
+        typing('----- Quantum-Resistance encrypted text -----');
+        typing('----- Round5 key encapsulation for encryption and Falcon for digital signature -----');
+        
+        typing(messageAfterQuantumEncryption);
+
+        
 
 
         contract.methods.sendMessage(walletAddress,messageAfterQuantumEncryption).send({
@@ -1348,6 +1419,23 @@ $( "#send-msg" ).click(function() {
             gas: 4700000,
             gasPrice:0
          })
+        .on('transactionHash', function(hash){
+           console.log("hash",hash);
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+            console.log("confirmationNumber",confirmationNumber);
+        })
+        .on('receipt', function(receipt){
+            // receipt example
+            console.log(receipt);
+            if(receipt.status) {
+                console.log("message sent successfully oncahin")
+            }
+        })
+        .on('error', function(error, receipt) { 
+            console.log(error);
+            
+        });
 
         console.log('<br/>----- EThree.cleanup -----');
         await cleanup();
@@ -1371,37 +1459,30 @@ $( "#send-msg" ).click(function() {
 
 
     //Get Messsage
-    contract.methods.readMessage("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E","0x1509dE665356b6ca3a909630cd4646B54D26711D").call((err, result) => { 
-        console.log(" err",err) 
-        console.log("result",result)
+    // contract.methods.readMessage("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E","0x1509dE665356b6ca3a909630cd4646B54D26711D").call((err, result) => { 
+    //     console.log(" err",err) 
+    //     console.log("result",result)
       
        
 
-        for (let index = 0; index < result.length; index++) {
-            const msgg = result[index];
-            console.log("msgg",msgg);
-            showSentMessage(msgg.msg,msgg.sender);
+    //     for (let index = 0; index < result.length; index++) {
+    //         const msgg = result[index];
+    //         console.log("msgg",msgg);
+    //         showSentMessage(msgg.msg,msgg.sender);
             
-        }
+    //     }
 
-    });
+    // });
 
 
 
-    contract.methods.getMyFriendList("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E").call((err, result) => { 
-        console.log(" getMyFriendList err",err) 
-        console.log("getMyFriendList result",result)
+    // contract.methods.getMyFriendList("0x83D341B01e86EF4e1987Be96F191d1b7F05d663E").call((err, result) => { 
+    //     console.log(" getMyFriendList err",err) 
+    //     console.log("getMyFriendList result",result)
       
        
-
-        // for (let index = 0; index < result.length; index++) {
-        //     const msgg = result[index];
-        //     console.log("msgg",msgg);
-        //     showSentMessage(msgg.msg);
-            
-        // }
-
-    });
+ 
+    // });
 
 
 

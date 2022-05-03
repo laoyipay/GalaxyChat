@@ -59,7 +59,7 @@
             <div class="theme-title">
               <div class="media">
                 <div> 
-                  <h2>Recent</h2>
+                  <h2 id="testmodal">Recent</h2>
                   <h5>On-chain encrypted chat with friends &#128536;</h5>
                 </div>
                 <div class="media-body"><a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#"><i class="ti-angle-right"></i></a><a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#"><i class="ti-layout-grid2"></i></a></div>
@@ -2382,6 +2382,27 @@
         </div>
       </aside>
     </div>
+
+    <div class="modal fade" id="onchainmessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Message Status</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="onchainmessagenotice">You Message is Processing: </div>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+
+
     <div class="modal fade add-popup add-contact-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -2953,6 +2974,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+            <div clas="loader-txt">
+              <p>Check out this slick bootstrap spinner modal. <br><br><small>We are addicted to Bootstrap... #love</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade add-popup msg-chat-modal" id="msgcallModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -3068,7 +3104,9 @@
     <script src="../assets/js/jquery.magnific-popup.js"></script>
     <script src="../assets/js/zoom-gallery.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web3@1.2.1/src/index.min.js"></script> -->
     <script src="https://unpkg.com/@virgilsecurity/e3kit-browser@^2.3.3/dist/browser.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
     <script src="../assets/js/device.js"></script>
     <script src="../assets/js/script.js"></script>
    

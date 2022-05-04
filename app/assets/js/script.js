@@ -716,7 +716,7 @@
         });
 
         function sendMessage() {
-            console.log("showSentMessage called")
+            console.log("sendMessage called")
             var message = $('.message-input input').val();
             if($.trim(message) == '') {
                 return false;
@@ -731,7 +731,7 @@
 
 
 
-        function showSentMessage(message,senderName) {
+        function showSentMessage(message) {
             console.log("showSentMessage called")
 
             if($.trim(message) == '') {
@@ -743,7 +743,7 @@
 
             
            
-            $('<li class="replies"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/1.jpg&quot;); background-size: cover; background-position: center center;"></div><div class="media-body"> <div class="contact-name"> <h5>Alan josheph</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5>' + message + '</h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+            $('<li class="replies"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/contact/1.jpg&quot;); background-size: cover; background-position: center center;"></div><div class="media-body"> <div class="contact-name"> <h5>Edison.bnb</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5>' + message + '</h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
 
 
             $('.chat-main .active .details h6').html('<span>You : </span>' + message);
@@ -761,7 +761,7 @@
                 avatarUrl = "contact/2.jpg";
             }
 
-          $('<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/' + avatarUrl +';); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/contact/2.jpg" alt="Avatar" style="display: none;"></div><div class="media-body"> <div class="contact-name"> <h5>Josephin water</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
+          $('<li class="sent last typing-m"> <div class="media"> <div class="profile mr-4 bg-size" style="background-image: url(&quot;../assets/images/' + avatarUrl +';); background-size: cover; background-position: center center; display: block;"><img class="bg-img" src="../assets/images/contact/2.jpg" alt="Avatar" style="display: none;"></div><div class="media-body"> <div class="contact-name"> <h5>0xBenny</h5> <h6>01:42 AM</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>').appendTo($('.messages .chatappend'));
           $(".messages").animate({ scrollTop: $(document).height() }, "fast");   
           setTimeout(function() {
             $('.typing-m').hide(); 
@@ -1052,6 +1052,8 @@ if (!('webkitSpeechRecognition' in window)) {
         }
     };
 
+    var QCount = 0;
+
     recognition.onend = function () {
         recognizing = false;
         if (ignore_onend) {
@@ -1088,11 +1090,26 @@ if (!('webkitSpeechRecognition' in window)) {
             }
         }
 
-        final_transcript.replace("mft", "NFT");
-   
+       
+         final_transcript.replace("mft", "NFT");
+
+        // if(final_transcript.trim(final_transcript) != "") {
+        //     return;
+        // }
+
+        // if(QCount == 1 ){
+        //     final_transcript = "Show me top nft projects";
+        // } 
+
         console.log("final_transcript",final_transcript);
-        requestNPL(final_transcript);
-        showSentMessage(final_transcript,'');
+            requestNPL(final_transcript);
+            showSentMessage(final_transcript);
+            QCount++;
+   
+      
+
+        
+
         
         
     
@@ -1429,7 +1446,10 @@ $( "#send-msg" ).click(function() {
             // receipt example
             console.log(receipt);
             if(receipt.status) {
-                console.log("message sent successfully oncahin")
+                alert("message sent successfully oncahin");
+                console.log("messageText",messageText);
+                showSentMessage(messageText);
+                myModal.hide()
             }
         })
         .on('error', function(error, receipt) { 

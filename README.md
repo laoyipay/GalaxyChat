@@ -13,3 +13,9 @@ Quantum resistant chat: Users can send quantum resistant, encrypted message to e
 
 Galaxy Bot: an AI-powered bot which allows users to use voice and to query price and get hot NFT project etc
 
+
+
+
+
+https://user-images.githubusercontent.com/4304711/168498579-112aaae3-af0e-4d6f-b4ec-1510549be224.mp4
+
